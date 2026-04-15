@@ -28,7 +28,6 @@ export default function Register({ setPage }) {
         return;
       }
 
-      // ✅ SUCCESS FLOW
       if (data.token) {
         localStorage.setItem("token", data.token); // 🔥 ADD THIS (IMPORTANT)
 
