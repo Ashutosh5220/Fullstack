@@ -6,12 +6,11 @@ export default function Dashboard({ setToken }) {
 
   const token = localStorage.getItem("token");
 
-  // 🚨 FIX 1: ALWAYS CHECK TOKEN
   if (!token) {
     return <h3>Please login again</h3>;
   }
 
-  // 📌 GET TASKS
+
   const fetchTasks = async () => {
     try {
       const res = await fetch("http://localhost:5000/api/v1/tasks", {
@@ -37,7 +36,6 @@ export default function Dashboard({ setToken }) {
     fetchTasks();
   }, []);
 
-  // 📌 ADD TASK
   const addTask = async () => {
     if (!title) return;
 
@@ -67,7 +65,7 @@ export default function Dashboard({ setToken }) {
     }
   };
 
-  // 📌 DELETE TASK
+ 
   const deleteTask = async (id) => {
     try {
       const res = await fetch(
@@ -86,7 +84,7 @@ export default function Dashboard({ setToken }) {
     }
   };
 
-  // 📌 LOGOUT FIX
+ 
   const logout = () => {
     localStorage.removeItem("token");
     setToken(null);
