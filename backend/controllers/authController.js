@@ -1,28 +1,24 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
-// 🔑 Generate JWT Token
+
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE,
   });
 };
 
-//
-// 📝 REGISTER USER
-//
+
 exports.registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // ✅ Validation
     if (!name || !email || !password) {
       return res.status(400).json({
         message: "All fields are required",
       });
     }
 
-    // ✅ Check if user already exists
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({
@@ -30,14 +26,12 @@ exports.registerUser = async (req, res) => {
       });
     }
 
-    // ✅ Create user
     const user = await User.create({
       name,
       email,
       password,
     });
 
-    // ✅ Response
     res.status(201).json({
       _id: user._id,
       name: user.name,
@@ -51,9 +45,7 @@ exports.registerUser = async (req, res) => {
   }
 };
 
-//
-// 🔐 LOGIN USER
-//
+
 exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -65,10 +57,10 @@ exports.loginUser = async (req, res) => {
       });
     }
 
-    // ✅ Find user (include password for comparison)
+  
     const user = await User.findOne({ email }).select("+password");
 
-    // ✅ Check password
+
     if (user && (await user.matchPassword(password))) {
       return res.json({
         _id: user._id,
