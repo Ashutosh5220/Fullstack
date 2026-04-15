@@ -27,7 +27,7 @@ export default function Login({ setToken }) {
         return;
       }
 
-      // ✅ IMPORTANT TOKEN FLOW FIX
+     
       if (data.token) {
         localStorage.setItem("token", data.token);
         setToken(data.token); // switch to dashboard
