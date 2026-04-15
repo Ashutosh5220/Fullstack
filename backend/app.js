@@ -7,7 +7,7 @@ const authRoutes = require("./routes/authRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 const errorMiddleware = require("./middleware/errorMiddleware");
 
-// ✅ CORS MUST BE FIRST (VERY IMPORTANT)
+// CORS 
 app.use(cors({
   origin: "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -21,7 +21,7 @@ app.use(express.json());
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/tasks", taskRoutes);
 
-// Error Middleware (LAST)
+// Error Middleware 
 app.use(errorMiddleware);
 
 module.exports = app;
